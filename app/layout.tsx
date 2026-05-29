@@ -1,4 +1,5 @@
 import Link from "next/link"
+
 export default function RootLayout({
   children,
 }: {
@@ -12,7 +13,7 @@ export default function RootLayout({
           {" | "}
           <Link href="/notes">notes</Link>
           {" | "}
-          <Link href="/notes/new">create new node</Link>
+          <Link href="/notes/new">create new</Link>
         </nav>
         {children}
       </body>
