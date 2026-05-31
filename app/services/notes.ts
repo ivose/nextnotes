@@ -1,6 +1,6 @@
-import { eq } from "drizzle-orm"
+import { eq, sql } from "drizzle-orm"
 import { db } from "../../db"
-import { notes } from "../../db/schema"
+import { notes, users } from "../../db/schema"
 
 export const getNotes = async (importantOnly: boolean) => {
   if (importantOnly) {
@@ -18,7 +18,11 @@ export const getNoteById = async (id: number) => {
 }
 
 export const addNote = async (content: string, important: boolean) => {
-  await db.insert(notes).values({ content, important })
+  const user = await db.query.users.findFirst({
+    orderBy: sql`RANDOM()`,
+  })
+
+  await db.insert(notes).values({ content, important, userId: user.id })
 }
 
 export const toggleImportance = async (id: number) => {
@@ -29,4 +33,11 @@ export const toggleImportance = async (id: number) => {
       .set({ important: !note.important })
       .where(eq(notes.id, id))
   }
+}
+
+export const getUserWithNotes = async (id: number) => {
+  return db.query.users.findFirst({
+    where: eq(users.id, id),
+    with: { notes: true },
+  })
 }
