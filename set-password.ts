@@ -1,11 +1,9 @@
-import { config } from "dotenv"
-config({ path: ".env.local" })
 import bcrypt from "bcryptjs"
 import { eq } from "drizzle-orm"
+import { db } from "./db"
+import { users } from "./db/schema"
 
 async function setPassword(username: string, password: string) {
-  const { db } = await import("./db")
-  const { users } = await import("./db/schema")
   const hash = await bcrypt.hash(password, 10)
   await db
     .update(users)

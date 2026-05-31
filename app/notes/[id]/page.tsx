@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation"
-import { getNoteById } from "../../services/notes"
-import { toggleNoteImportance } from "../../actions/notes"
+import { getNoteById } from "@/app/services/notes"
+import { toggleNoteImportance } from "@/app/actions/notes"
 
 export const dynamic = "force-dynamic"
 

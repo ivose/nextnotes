@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { getUserWithNotes } from "../../services/users"
+import { getUserWithNotes } from "@/app/services/users"
 
 export const dynamic = "force-dynamic"
 

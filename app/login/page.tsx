@@ -1,6 +1,7 @@
 "use client"
 
 import { signIn } from "next-auth/react"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
@@ -8,7 +9,7 @@ export default function LoginPage() {
   const router = useRouter()
   const [error, setError] = useState("")
 
-  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
 
@@ -45,6 +46,9 @@ export default function LoginPage() {
         </div>
         <button type="submit">Login</button>
       </form>
+      <p>
+        Don&apos;t have an account? <Link href="/register">Register</Link>
+      </p>
     </div>
   )
 }
