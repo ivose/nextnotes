@@ -22,6 +22,10 @@ export const addNote = async (content: string, important: boolean) => {
     orderBy: sql`RANDOM()`,
   })
 
+  if (!user) {
+    throw new Error("No users found")
+  }
+
   await db.insert(notes).values({ content, important, userId: user.id })
 }
 
@@ -33,11 +37,4 @@ export const toggleImportance = async (id: number) => {
       .set({ important: !note.important })
       .where(eq(notes.id, id))
   }
-}
-
-export const getUserWithNotes = async (id: number) => {
-  return db.query.users.findFirst({
-    where: eq(users.id, id),
-    with: { notes: true },
-  })
 }
