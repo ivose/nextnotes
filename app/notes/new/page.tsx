@@ -4,6 +4,7 @@ import { useActionState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { useNotification } from "@/app/components/NotificationContext"
 import { createNote } from "@/app/actions/notes"
+import FormField from "@/app/components/FormField"
 
 const NewNote = () => {
   const [state, formAction] = useActionState(createNote, {
@@ -21,23 +22,23 @@ const NewNote = () => {
   }, [state, showNotification, router])
 
   return (
-    <div>
-      <h2>Create a new note</h2>
-      <form action={formAction}>
+    <div className="max-w-2xl mx-auto p-6">
+      <h2 className="text-2xl font-bold mb-4">Create a new note</h2>
+      <form action={formAction} className="space-y-4">
+        <FormField label="Content" name="content" />
         <div>
-          <label>
-            Content
-            <input type="text" name="content" />
-          </label>
-        </div>
-        <div>
-          <label>
-            <input type="checkbox" name="important" />
+          <label className="flex items-center gap-2">
+            <input type="checkbox" name="important" className="rounded" />
             Important
           </label>
         </div>
-        <button type="submit">Create</button>
-        {state.error && <p style={{ color: "red" }}>{state.error}</p>}
+        <button
+          type="submit"
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          Create
+        </button>
+        {state.error && <p className="text-red-600">{state.error}</p>}
       </form>
     </div>
   )
